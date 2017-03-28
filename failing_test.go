@@ -9,32 +9,32 @@ import (
 
 func TestToFail_equalIntDouble(t *testing.T) {
 	assert := assertion.New(t)
-	assert.Equal(1.0, 1, "equal!")
+	assert.Equal(1.0, 1)
 }
 
 func TestToFail_notEqualIntDouble(t *testing.T) {
 	assert := assertion.New(t)
-	assert.NotEqual(1, 1, "not equal!")
+	assert.NotEqual(1, 1)
 }
 
 func TestToFail_true(t *testing.T) {
 	assert := assertion.New(t)
-	assert.True(false, "true!")
+	assert.True(false)
 }
 
 func TestToFail_false(t *testing.T) {
 	assert := assertion.New(t)
-	assert.False(true, "false!")
+	assert.False(true)
 }
 
 func TestToFail_nil(t *testing.T) {
 	assert := assertion.New(t)
-	assert.Nil(1, "nil!")
+	assert.Nil(1)
 }
 
 func TestToFail_notNil(t *testing.T) {
 	assert := assertion.New(t)
-	assert.NotNil(nil, "not nil!")
+	assert.NotNil(nil)
 }
 
 func TestToFail_fail(t *testing.T) {
