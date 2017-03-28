@@ -41,7 +41,7 @@ func TestStructs(t *testing.T) {
 ```
 
 ## Output
-The out put of a failed shows you a stack trace.
+The out put of a failed test shows you a stack trace.
 ```
 assert.go:75: Not equal:
 	  actual: 1(float64)
