@@ -40,38 +40,50 @@ func TestDataStructures(t *testing.T) {
 func TestStructs(t *testing.T) {
 	assert := assertion.New(t)
 
-	type structToTest struct {
+	type Post struct {
 		Id  int64
 		Msg string
 	}
 
-	s1 := structToTest{Id: 12, Msg: "New"}
-	s2 := structToTest{Id: 12, Msg: "New"}
-	s3 := structToTest{Id: 12, Msg: "Old"}
+	p1 := Post{Id: 12, Msg: "New"}
+	p2 := Post{Id: 12, Msg: "New"}
+	p3 := Post{Id: 12, Msg: "Old"}
 
-	assert.Equal(s1, s1)
-	assert.Equal(s1, s2)
-	assert.NotEqual(s1, s3)
+	assert.Equal(p1, p1)
+	assert.Equal(p1, p2)
+	assert.Equal(&p1, &p2)
+	assert.NotEqual(p1, p3)
+	assert.NotEqual(p1, &p1)
 
-	assert.Equal([]structToTest{s1}, []structToTest{s2})
-	assert.NotEqual([]structToTest{s1}, []structToTest{s3})
-	assert.Contains([]structToTest{s1, s2, s3}, s3)
-	assert.ContainsNot([]structToTest{s1, s2}, s3)
-	assert.ContainsNot([]structToTest{s1}, 22)
-	assert.ContainsNot([]structToTest{}, s1)
+	assert.Equal([]Post{p1}, []Post{p2})
+	assert.NotEqual([]Post{p1}, []Post{p3})
+	assert.Contains([]Post{p1, p2, p3}, p3)
+	assert.Contains([]*Post{&p1, &p2, &p3}, &p3)
+	assert.Contains([]*Post{&p1, &p3}, &p2)
+	assert.ContainsNot([]Post{p1, p2}, p3)
+	assert.ContainsNot([]Post{p1}, 22)
+	assert.ContainsNot([]Post{}, p1)
+	assert.ContainsNot([]*Post{&p1, &p2}, &p3)
+	assert.ContainsNot([]*Post{&p1, &p2}, p2)
 
-	assert.Equal([1]structToTest{s1}, [1]structToTest{s2})
-	assert.NotEqual([1]structToTest{s1}, [1]structToTest{s3})
-	assert.Contains([2]structToTest{s1, s2}, s2)
-	assert.ContainsNot([2]structToTest{s1, s2}, s3)
-	assert.ContainsNot([1]structToTest{s1}, "blob")
-	assert.ContainsNot([0]structToTest{}, s1)
+	assert.Equal([1]Post{p1}, [1]Post{p2})
+	assert.NotEqual([1]Post{p1}, [1]Post{p3})
+	assert.Contains([2]Post{p1, p2}, p2)
+	assert.Contains([3]*Post{&p1, &p2, &p3}, &p3)
+	assert.Contains([2]*Post{&p1, &p3}, &p2)
+	assert.ContainsNot([2]Post{p1, p2}, p3)
+	assert.ContainsNot([1]Post{p1}, "blob")
+	assert.ContainsNot([0]Post{}, p1)
+	assert.ContainsNot([2]*Post{&p1, &p2}, &p3)
+	assert.ContainsNot([2]*Post{&p1, &p2}, p1)
 
-	assert.Equal(map[int]structToTest{1: s1}, map[int]structToTest{1: s2})
-	assert.NotEqual(map[int]structToTest{1: s1}, map[int]structToTest{1: s3})
-	assert.NotEqual(map[int]structToTest{1: s1}, map[int]structToTest{2: s1})
-	assert.Contains(map[int]structToTest{1: s1, 2: s2}, s2)
-	assert.ContainsNot(map[int]structToTest{1: s1, 2: s2}, s3)
-	assert.ContainsNot(map[int]structToTest{1: s1}, "blob")
-	assert.ContainsNot(map[int]structToTest{}, s1)
+	assert.Equal(map[int]Post{1: p1}, map[int]Post{1: p2})
+	assert.NotEqual(map[int]Post{1: p1}, map[int]Post{1: p3})
+	assert.NotEqual(map[int]Post{1: p1}, map[int]Post{2: p1})
+	assert.Contains(map[int]Post{1: p1, 2: p2}, p2)
+	assert.Contains(map[int]*Post{1: &p1, 2: &p2}, &p2)
+	assert.ContainsNot(map[int]Post{1: p1, 2: p2}, p3)
+	assert.ContainsNot(map[int]Post{1: p1}, "blob")
+	assert.ContainsNot(map[int]Post{}, p1)
+	assert.ContainsNot(map[int]*Post{1: &p1}, p1)
 }
