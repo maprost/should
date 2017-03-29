@@ -22,10 +22,7 @@ func (t Assert) Equal(a interface{}, b interface{}, msg ...interface{}) {
 
 func (t Assert) NotEqual(a interface{}, b interface{}, msg ...interface{}) {
 	if reflect.DeepEqual(a, b) == true {
-		t.fail(1, defaultMsg(msg,
-			fmt.Sprint("Should not equal:\n  actual: ",
-				valueToString(a),
-				"\nexpected: ", valueToString(b))))
+		t.fail(1, defaultMsg(msg, "Should not equal"), actualExpectedValues(a, b))
 	}
 }
 
@@ -58,21 +55,55 @@ func (t Assert) NotNil(a interface{}, msg ...interface{}) {
 	}
 }
 
+// check if the collection 'c' contains the given element 'elem'.
+// if the 'c' is a map, it will check if the map have a value that is equal with the 'elem'
+func (t Assert) Contains(c interface{}, elem interface{}) {
+	switch reflect.TypeOf(c).Kind() {
+	case reflect.Slice, reflect.Array:
+		if isInList(c, elem) {
+			return
+		}
+		t.fail(1, "Element '", elem, "' is not in array/slice: \n", c)
+	case reflect.Map:
+		if isInMap(c, elem) {
+			return
+		}
+		t.fail(1, "Element '", elem, "' is not in map: \n", c)
+	default:
+		t.fail(1, "Wrong type, should be a slice, array or map.")
+	}
+}
+
+// check if the collection 'c' contains not the given element 'elem'.
+// if the 'c' is a map, it will check if the map have not a value that is equal with the 'elem'
+func (t Assert) ContainsNot(c interface{}, elem interface{}) {
+	switch reflect.TypeOf(c).Kind() {
+	case reflect.Slice, reflect.Array:
+		if isInList(c, elem) {
+			t.fail(1, "Element '", elem, "' is in array/slice: \n", c)
+		}
+	case reflect.Map:
+		if isInMap(c, elem) {
+			t.fail(1, "Element '", elem, "' is in map: \n", c)
+		}
+	default:
+		t.fail(1, "Wrong type, should be a slice, array or map.")
+	}
+}
+
 func (t Assert) Fail(msg ...interface{}) {
-	t.fail(1, fmt.Sprint(msg...))
+	t.fail(1, msg...)
 }
 
 func (t Assert) equal(a interface{}, b interface{}, msg string) {
 	if reflect.DeepEqual(a, b) == false {
-		t.fail(2, fmt.Sprint(msg,
-			"\n   actual: ", valueToString(a),
-			"\n expected: ", valueToString(b)))
+		t.fail(2, msg, actualExpectedValues(a, b))
 	}
 }
 
-func (t Assert) fail(offset int, msg string) {
+func (t Assert) fail(offset int, msg ...interface{}) {
 	stack := getStack(offset)
-	t.t.Fatal(msg, "\n", stack)
+	t.t.Fatal(fmt.Sprint(msg...), "\n", stack)
 }
 
 func defaultMsg(msg []interface{}, defaultMsg string) string {
@@ -82,8 +113,34 @@ func defaultMsg(msg []interface{}, defaultMsg string) string {
 	return fmt.Sprint(msg...)
 }
 
-func valueToString(a interface{}) string {
-	return fmt.Sprint(a, "(", reflect.ValueOf(a).Type(), ")")
+func actualExpectedValues(a interface{}, b interface{}) string {
+	return fmt.Sprint(
+		"\n   actual: ", a, " (", reflect.ValueOf(a).Type(), ")",
+		"\n expected: ", b, " (", reflect.ValueOf(b).Type(), ")")
+}
+
+// check if the given array/slice contains the element
+func isInList(c interface{}, elem interface{}) bool {
+	list := reflect.ValueOf(c)
+	for i := 0; i < list.Len(); i++ {
+		e := list.Index(i).Interface()
+		if reflect.DeepEqual(e, elem) {
+			return true
+		}
+	}
+	return false
+}
+
+// check if the given map contains the element as value
+func isInMap(c interface{}, elem interface{}) bool {
+	mp := reflect.ValueOf(c)
+	for _, key := range mp.MapKeys() {
+		e := mp.MapIndex(key).Interface()
+		if reflect.DeepEqual(e, elem) {
+			return true
+		}
+	}
+	return false
 }
 
 func getStack(offset int) string {
