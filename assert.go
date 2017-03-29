@@ -30,13 +30,13 @@ func (t Assert) NotEqual(a interface{}, e interface{}, msg ...interface{}) {
 
 func (t Assert) True(a bool, msg ...interface{}) {
 	if !a {
-		t.fail(1, defaultMsg(msg, "Should be true:"), a)
+		t.fail(1, defaultMsg(msg, "Should be true: "), a)
 	}
 }
 
 func (t Assert) False(a bool, msg ...interface{}) {
 	if a {
-		t.fail(1, defaultMsg(msg, "Should be false:"), a)
+		t.fail(1, defaultMsg(msg, "Should be false: "), a)
 	}
 }
 
