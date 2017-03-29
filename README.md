@@ -49,23 +49,23 @@ func TestDataStructures(t *testing.T) {
 func TestStructs(t *testing.T) {
     assert := assertion.New(t)
 
-    type structToTest struct {
+    type Post struct {
         Id  int64
         Msg string
     }
 
-    s1 := structToTest{Id: 12, Msg: "New"}
-    s2 := structToTest{Id: 12, Msg: "New"}
-    s3 := structToTest{Id: 12, Msg: "Old"}
+    p1 := Post{Id: 12, Msg: "New"}
+    p2 := Post{Id: 12, Msg: "New"}
+    p3 := Post{Id: 12, Msg: "Old"}
 
-    assert.Equal(s1, s1)
-    assert.Equal(s1, s2)
-    assert.NotEqual(s1, s3)
+    assert.Equal(p1, p1)
+    assert.Equal(p1, p2)
+    assert.NotEqual(p1, p3)
 
-    assert.Equal([]structToTest{s1}, []structToTest{s2})
-    assert.NotEqual([]structToTest{s1}, []structToTest{s3})
-    assert.Contains([]structToTest{s1, s2, s3}, s3)
-    assert.ContainsNot([]structToTest{s1, s2}, s3)
+    assert.Equal([]Post{p1}, []Post{p2})
+    assert.NotEqual([]Post{p1}, []Post{p3})
+    assert.Contains([]Post{p1, p2, p3}, p3)
+    assert.ContainsNot([]Post{p1, p2}, p3)
 }
 ```
 

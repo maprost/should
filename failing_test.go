@@ -12,6 +12,11 @@ func TestToFail_equalIntDouble(t *testing.T) {
 	assert.Equal(1.0, 1)
 }
 
+func TestToFail_equalIntString(t *testing.T) {
+	assert := assertion.New(t)
+	assert.Equal("1", 1, "Why not?")
+}
+
 func TestToFail_notEqualIntDouble(t *testing.T) {
 	assert := assertion.New(t)
 	assert.NotEqual(1, 1)
