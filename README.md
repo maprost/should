@@ -7,15 +7,17 @@ go get github.com/mleuth/assertion
 ```
 
 ## Supported methods
-- `Equal` -> check if two element are equal
-- `NotEqual` -> check if two element are not equal
-- `Nil`  -> check if an element it nil
-- `NotNil`  -> check if an element is not nil
-- `True`  -> check if an element is `true`
-- `False` -> check if an element is `false`
-- `Len` -> (only for `array`/`slice`/`map`) check the length of the collection
-- `Contains` -> (only for `array`/`slice`/`map`) check if the collection contains the element
-- `ContainsNot` -> (only for `array`/`slice`/`map`) check if the collection contains not the element
+- `Equal`(`element`, `element`) -> check if two element are equal
+- `NotEqual`(`element`, `element`) -> check if two element are not equal
+- `Nil`(`element`)  -> check if an element it nil
+- `NotNil`(`element`)  -> check if an element is not nil
+- `True`(`element`)  -> check if an element is `true`
+- `False`(`element`) -> check if an element is `false`
+- `Len`(`collection`, `length`) -> (only for `array`/`slice`/`map`) check the length of the collection
+- `Contains`(`collection`, `element`...) -> (only for `array`/`slice`/`map`) check if the collection contains the elements
+- `ContainsNot`(`collection`, `element`...) -> (only for `array`/`slice`/`map`) check if the collection contains not the elements
+- `Similar`(`collection`, `collection`) -> (only for `array`/`slice`) check if the two collections contains the same elements
+- `NotSimilar`(`collection`, `collection`) -> (only for `array`/`slice`) check if the two collections contains at least one different element
 - `Fail` -> stops the tests with the given error message
 
 ## Usage
@@ -44,6 +46,8 @@ func TestDataStructures(t *testing.T) {
     assert.NotEqual(map[int]string{1:"1", 3:"3"}, map[int]string{1:"1", 4:"4"})
     assert.Contains([]int{1, 2, 3}, 2)
     assert.ContainsNot([]int{1, 2, 3}, 4)
+    assert.Similar([]int{1, 2, 3}, [3]int{3, 2, 1})
+    assert.NotSimilar([]int{1, 2, 3}, [3]int{3, 2, 4})
 }
 
 func TestStructs(t *testing.T) {

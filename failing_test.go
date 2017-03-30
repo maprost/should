@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// all tests have to fail
+// all tests have to fail (can't recover failed tests)
 
 func TestToFail_equalIntDouble(t *testing.T) {
 	assert := assertion.New(t)
@@ -85,4 +85,39 @@ func TestToFail_containsNotSlice_isIn(t *testing.T) {
 func TestToFail_containsNotMap_isIn(t *testing.T) {
 	assert := assertion.New(t)
 	assert.ContainsNot(map[int]int{1: 2, 2: 4, 3: 6}, 6)
+}
+
+func TestToFail_similar_not(t *testing.T) {
+	assert := assertion.New(t)
+	assert.Similar([]int{1, 2, 3}, []int{2, 3, 4})
+}
+
+func TestToFail_similar_wrongType_map(t *testing.T) {
+	assert := assertion.New(t)
+	assert.Similar([]int{1, 2, 3}, map[int]int{2: 1, 3: 1, 4: 1})
+}
+
+func TestToFail_similar_wrongType_int(t *testing.T) {
+	assert := assertion.New(t)
+	assert.Similar(4, []int{1, 2, 3})
+}
+
+func TestToFail_similar_wrongLen(t *testing.T) {
+	assert := assertion.New(t)
+	assert.Similar([]int{1, 2, 3, 4}, []int{2, 3, 4})
+}
+
+func TestToFail_notSimilar(t *testing.T) {
+	assert := assertion.New(t)
+	assert.NotSimilar([]int{1, 2, 3, 4}, []int{2, 3, 4, 1})
+}
+
+func TestToFail_notSimilar_wrongType_map(t *testing.T) {
+	assert := assertion.New(t)
+	assert.NotSimilar([]int{1, 2, 3}, map[int]int{2: 1, 3: 1, 4: 1})
+}
+
+func TestToFail_notSimilar_wrongType_int(t *testing.T) {
+	assert := assertion.New(t)
+	assert.NotSimilar(4, []int{1, 2, 3})
 }
