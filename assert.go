@@ -7,13 +7,12 @@ import (
 	"strings"
 )
 
-// With this interface you can insert *testing.T and *testing.B
-// also it is possible to insert your own test environment.
+// TestEnvironment interface represent *testing.T and *testing.B.
 type TestEnvironment interface {
 	Fatal(args ...interface{})
 }
 
-// Struct holds the method and the given test environment.
+// Assert struct holds the method and the given test environment.
 type Assert struct {
 	t TestEnvironment
 }
