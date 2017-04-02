@@ -1,3 +1,6 @@
+[![GoDoc](https://godoc.org/github.com/mleuth/assertion?status.svg)](https://godoc.org/github.com/mleuth/assertion)
+
+
 # assertion
 lightweight test environment
 
