@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/MLeuth/assertion.svg)](https://travis-ci.org/MLeuth/assertion)
-[![Coverage Status](https://coveralls.io/repos/github/MLeuth/assertion/badge.svg)](https://coveralls.io/github/MLeuth/assertion)
+[![Coverage Status](https://coveralls.io/repos/github/MLeuth/assertion/badge.svg?branch=master)](https://coveralls.io/github/MLeuth/assertion?branch=master)
 [![GoDoc](https://godoc.org/github.com/MLeuth/assertion?status.svg)](https://godoc.org/github.com/MLeuth/assertion)
 
 # assertion

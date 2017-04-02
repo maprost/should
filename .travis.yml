@@ -4,9 +4,7 @@ go:
   - 1.7
 
 before_install:
-  - go get golang.org/x/tools/cmd/cover
   - go get github.com/mattn/goveralls
 
 script:
-  - go test -covermode=atomic -coverprofile=profile.cov
-  - goveralls -coverprofile=profile.cov -service=travis-ci
+  - goveralls -service=travis-ci
