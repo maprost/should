@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/mleuth/assertion.svg)](https://travis-ci.org/mleuth/assertion)
+[![Coverage Status](https://coveralls.io/repos/github/MLeuth/assertion/badge.svg)](https://coveralls.io/github/MLeuth/assertion)
 [![GoDoc](https://godoc.org/github.com/mleuth/assertion?status.svg)](https://godoc.org/github.com/mleuth/assertion)
-
 
 # assertion
 lightweight test environment
