@@ -5,14 +5,17 @@ import (
 	"reflect"
 	"runtime/debug"
 	"strings"
-	"testing"
 )
 
-type Assert struct {
-	t *testing.T
+type TestEnvironment interface {
+	Fatal(args ...interface{})
 }
 
-func New(t *testing.T) Assert {
+type Assert struct {
+	t TestEnvironment
+}
+
+func New(t TestEnvironment) Assert {
 	return Assert{t: t}
 }
 
