@@ -2,9 +2,9 @@ language: go
 
 go:
   - 1.7
-
-before_install:
-  - go get github.com/mattn/goveralls
+  - 1.8
+  - tip
 
 script:
-  - goveralls -service=travis-ci
+  - go install
+  - go test -cover ./...
