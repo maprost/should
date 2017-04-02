@@ -7,47 +7,51 @@ import (
 	"strings"
 )
 
+// With this interface you can insert *testing.T and *testing.B
+// also it is possible to insert your own test environment.
 type TestEnvironment interface {
 	Fatal(args ...interface{})
 }
 
+// Struct holds the method and the given test environment.
 type Assert struct {
 	t TestEnvironment
 }
 
+// New Assert struct
 func New(t TestEnvironment) Assert {
 	return Assert{t: t}
 }
 
-// check if 'a' == 'e'
+// Equal checks if 'a' == 'e'
 func (t Assert) Equal(a interface{}, e interface{}, msg ...interface{}) {
 	if reflect.DeepEqual(a, e) == false {
 		t.fail(1, defaultMsg(msg, "Not equal:"), actualExpectedTypeValues(a, e))
 	}
 }
 
-// check if 'a' != 'e'
+// NotEqual checks if 'a' != 'e'
 func (t Assert) NotEqual(a interface{}, e interface{}, msg ...interface{}) {
 	if reflect.DeepEqual(a, e) == true {
 		t.fail(1, defaultMsg(msg, "Should not equal:"), actualExpectedTypeValues(a, e))
 	}
 }
 
-// check if 'a' == true
+// True checks if 'a' == true
 func (t Assert) True(a bool, msg ...interface{}) {
 	if !a {
 		t.fail(1, defaultMsg(msg, "Should be true: "), a)
 	}
 }
 
-// check if 'a' == false
+// False checks if 'a' == false
 func (t Assert) False(a bool, msg ...interface{}) {
 	if a {
 		t.fail(1, defaultMsg(msg, "Should be false: "), a)
 	}
 }
 
-// check if len(c) == 'e'
+// Len checks if len(c) == 'e'
 func (t Assert) Len(c interface{}, e int, msg ...interface{}) {
 	switch reflect.TypeOf(c).Kind() {
 	case reflect.Slice, reflect.Array, reflect.Map:
@@ -61,21 +65,21 @@ func (t Assert) Len(c interface{}, e int, msg ...interface{}) {
 	}
 }
 
-// check if 'a' == nil
+// Nil checks if 'a' == nil
 func (t Assert) Nil(a interface{}, msg ...interface{}) {
 	if (a == nil) == false {
 		t.fail(1, defaultMsg(msg, "Is not nil: "), a)
 	}
 }
 
-// check if 'a' != nil
+// NotNil checks if 'a' != nil
 func (t Assert) NotNil(a interface{}, msg ...interface{}) {
 	if a == nil {
 		t.fail(1, defaultMsg(msg, "Is nil!"))
 	}
 }
 
-// check if the collection 'c' contains the given elements 'e'.
+// Contains checks if the collection 'c' contains the given elements 'e'.
 // if the 'c' is a map, it will check if the map have a value that is equal with the 'e'
 func (t Assert) Contains(c interface{}, e ...interface{}) {
 	switch reflect.TypeOf(c).Kind() {
@@ -96,7 +100,7 @@ func (t Assert) Contains(c interface{}, e ...interface{}) {
 	}
 }
 
-// check if the collection 'c' contains not the given element 'e'.
+// ContainsNot checks if the collection 'c' contains not the given element 'e'.
 // if the 'c' is a map, it will check if the map have not a value that is equal with the 'e'
 func (t Assert) ContainsNot(c interface{}, e interface{}, msg ...interface{}) {
 	switch reflect.TypeOf(c).Kind() {
@@ -113,7 +117,7 @@ func (t Assert) ContainsNot(c interface{}, e interface{}, msg ...interface{}) {
 	}
 }
 
-// check if two arrays/slices contains the same items.
+// Similar checks if two arrays/slices contains the same items.
 func (t Assert) Similar(a interface{}, e interface{}, msg ...interface{}) {
 	aKind := reflect.TypeOf(a).Kind()
 	eKind := reflect.TypeOf(e).Kind()
@@ -141,7 +145,7 @@ func (t Assert) Similar(a interface{}, e interface{}, msg ...interface{}) {
 	}
 }
 
-// check if two arrays/slices contains at least one different item.
+// NotSimilar checks if two arrays/slices contains at least one different item.
 func (t Assert) NotSimilar(a interface{}, e interface{}, msg ...interface{}) {
 	aKind := reflect.TypeOf(a).Kind()
 	eKind := reflect.TypeOf(e).Kind()
@@ -172,7 +176,7 @@ func (t Assert) NotSimilar(a interface{}, e interface{}, msg ...interface{}) {
 	}
 }
 
-// fail with message
+// Fail with message
 func (t Assert) Fail(msg ...interface{}) {
 	t.fail(1, errorMsg(msg...))
 }
@@ -242,7 +246,7 @@ func getStack(offset int) string {
 	var stack []string = strings.Split(stackString, "\n")
 
 	var result string
-	var goCounter int = 0
+	goCounter := 0
 	for _, value := range stack {
 		if strings.Contains(value, ".go") {
 			if goCounter > 2+offset {
