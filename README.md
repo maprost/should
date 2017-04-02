@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/mleuth/assertion.svg)](https://travis-ci.org/mleuth/assertion)
 [![GoDoc](https://godoc.org/github.com/mleuth/assertion?status.svg)](https://godoc.org/github.com/mleuth/assertion)
 
 
