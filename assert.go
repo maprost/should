@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// TestEnvironment interface represent *testing.T and *testing.B.
+// TestEnvironment interface represent *testing.T or *testing.B.
 type TestEnvironment interface {
 	Fatal(args ...interface{})
 }
