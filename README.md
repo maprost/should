@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/MLeuth/assertion.svg)](https://travis-ci.org/MLeuth/assertion)
-[![Coverage Status](https://coveralls.io/repos/github/MLeuth/assertion/badge.svg)](https://coveralls.io/github/MLeuth/assertion)
-[![GoDoc](https://godoc.org/github.com/MLeuth/assertion?status.svg)](https://godoc.org/github.com/MLeuth/assertion)
-[![Go Report Card](https://goreportcard.com/badge/github.com/MLeuth/assertion)](https://goreportcard.com/report/github.com/MLeuth/assertion)
+[![Build Status](https://travis-ci.org/maprost/assertion.svg)](https://travis-ci.org/maprost/assertion)
+[![Coverage Status](https://coveralls.io/repos/github/maprost/assertion/badge.svg)](https://coveralls.io/github/maprost/assertion)
+[![GoDoc](https://godoc.org/github.com/maprost/assertion?status.svg)](https://godoc.org/github.com/maprost/assertion)
+[![Go Report Card](https://goreportcard.com/badge/github.com/maprost/assertion)](https://goreportcard.com/report/github.com/maprost/assertion)
 
 # assertion
 lightweight test environment

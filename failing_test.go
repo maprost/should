@@ -1,7 +1,7 @@
 package assertion_test
 
 import (
-	"github.com/mleuth/assertion"
+	"github.com/maprost/assertion"
 	"testing"
 )
 

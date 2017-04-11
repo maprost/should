@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/mleuth/assertion",
+	"ImportPath": "github.com/maprost/assertion",
 	"GoVersion": "go1.8",
 	"GodepVersion": "v79",
 	"Packages": [
