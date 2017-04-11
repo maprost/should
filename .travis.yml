@@ -1,7 +1,8 @@
 language: go
 
-os:
-  - linux
+sudo: required
+os: linux
+dist: trusty
 
 go:
   - 1.7
