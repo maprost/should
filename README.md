@@ -8,7 +8,7 @@ lightweight test environment
 
 ## Install
 ```
-go get github.com/mleuth/assertion
+go get github.com/maprost/assertion
 ```
 
 ## Supported methods
@@ -84,7 +84,7 @@ The output of a failed test shows you the actual and expected value and a stackt
 assert.go:75: Not equal:
 	  actual: 1(float64)
 	expected: 1(int)
-	/.../src/github.com/mleuth/assertion/failing_test.go:12 +0xd1
+	/.../src/github.com/maprost/assertion/failing_test.go:12 +0xd1
 	/usr/local/go/src/testing/testing.go:657 +0x96
 	/usr/local/go/src/testing/testing.go:697 +0x2ca
 ```
