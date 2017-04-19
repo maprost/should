@@ -2,6 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/maprost/assertion/badge.svg)](https://coveralls.io/github/maprost/assertion)
 [![GoDoc](https://godoc.org/github.com/maprost/assertion?status.svg)](https://godoc.org/github.com/maprost/assertion)
 [![Go Report Card](https://goreportcard.com/badge/github.com/maprost/assertion)](https://goreportcard.com/report/github.com/maprost/assertion)
+[![Version](https://img.shields.io/github/release/maprost/assertion.svg)](https://github.com/maprost/assertion/releases)
 
 # assertion
 lightweight test environment
