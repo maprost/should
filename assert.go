@@ -67,7 +67,10 @@ func (t Assert) Len(c interface{}, e int, msg ...interface{}) {
 // Nil checks if 'a' == nil
 func (t Assert) Nil(a interface{}, msg ...interface{}) {
 	if (a == nil) == false {
-		t.fail(1, defaultMsg(msg, "Is not nil: "), a)
+		v := reflect.ValueOf(a)
+		if v.Type().Kind() == reflect.Ptr && v.IsNil() == false {
+			t.fail(1, defaultMsg(msg, "Is not nil: "), a)
+		}
 	}
 }
 

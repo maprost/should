@@ -30,7 +30,7 @@ go get github.com/maprost/assertion
 Please look into the test files to see the possibilities. For the first look
 here some examples:
 
-```
+```go
 func TestSimple(t *testing.T) {
     assert := assertion.New(t)
 
