@@ -8,9 +8,14 @@ import (
 	"testing"
 )
 
+// TestEnvironment interface represent *testing.T or *testing.B.
+type TestEnvironment interface {
+	Fatal(args ...interface{})
+}
+
 // Assert struct holds the method and the given test environment.
 type Assert struct {
-	t testing.TB
+	t TestEnvironment
 }
 
 // New Assert struct
@@ -63,10 +68,7 @@ func (t Assert) Len(c interface{}, e int, msg ...interface{}) {
 // Nil checks if 'a' == nil
 func (t Assert) Nil(a interface{}, msg ...interface{}) {
 	if (a == nil) == false {
-		v := reflect.ValueOf(a)
-		if v.Type().Kind() != reflect.Ptr || v.IsNil() == false {
-			t.fail(1, defaultMsg(msg, "Is not nil: "), a)
-		}
+		t.fail(1, defaultMsg(msg, "Is not nil: "), a)
 	}
 }
 
