@@ -5,20 +5,16 @@ import (
 	"reflect"
 	"runtime/debug"
 	"strings"
+	"testing"
 )
-
-// TestEnvironment interface represent *testing.T or *testing.B.
-type TestEnvironment interface {
-	Fatal(args ...interface{})
-}
 
 // Assert struct holds the method and the given test environment.
 type Assert struct {
-	t TestEnvironment
+	t testing.TB
 }
 
 // New Assert struct
-func New(t TestEnvironment) Assert {
+func New(t testing.TB) Assert {
 	return Assert{t: t}
 }
 
