@@ -5,7 +5,6 @@ import (
 	"reflect"
 	"runtime/debug"
 	"strings"
-	"testing"
 )
 
 // TestEnvironment interface represent *testing.T or *testing.B.
@@ -19,7 +18,7 @@ type Assert struct {
 }
 
 // New Assert struct
-func New(t testing.TB) Assert {
+func New(t TestEnvironment) Assert {
 	return Assert{t: t}
 }
 
