@@ -13,8 +13,8 @@ go get github.com/maprost/assertion
 ```
 
 ## Supported methods
-- `Equal`(`element`, `element`) -> check if two element are equal
-- `NotEqual`(`element`, `element`) -> check if two element are not equal
+- `Equal`(`element`, `element`) -> check if two elements are equal
+- `NotEqual`(`element`, `element`) -> check if two elements are not equal
 - `Nil`(`element`)  -> check if an element it nil
 - `NotNil`(`element`)  -> check if an element is not nil
 - `True`(`element`)  -> check if an element is `true`
@@ -30,7 +30,7 @@ go get github.com/maprost/assertion
 Please look into the test files to see the possibilities. For the first look
 here some examples:
 
-```
+```go
 func TestSimple(t *testing.T) {
     assert := assertion.New(t)
 
