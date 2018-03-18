@@ -20,8 +20,8 @@ go get github.com/maprost/should
 - `should.BeTrue`(`t`,`element`)  -> check if an element is `true`
 - `should.BeFalse`(`t`,`element`) -> check if an element is `false`
 - `should.HaveLength`(`t`,`collection`, `length`) -> (only for `array`/`slice`/`map`) check the length of the collection
-- `should.Contain`(`t`,`collection`, `element`...) -> (only for `array`/`slice`/`map`/`string`) check if the collection contains the elements
-- `should.NotContain`(`t`,`collection`, `element`...) -> (only for `array`/`slice`/`map`) check if the collection contains not the elements
+- `should.Contain`(`t`,`collection`, `element`) -> (only for `array`/`slice`/`map`/`string`) check if the collection contains the element
+- `should.NotContain`(`t`,`collection`, `element`) -> (only for `array`/`slice`/`map`) check if the collection contains not the element
 - `should.BeSimilar`(`t`,`collection`, `collection`) -> (only for `array`/`slice`) check if the two collections contains the same elements
 - `should.NotBeSimilar`(`t`,`collection`, `collection`) -> (only for `array`/`slice`) check if the two collections contains at least one different element
 - `should.Fail` -> stops the tests with the given error message
