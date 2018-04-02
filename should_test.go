@@ -88,3 +88,9 @@ func TestStructs(t *testing.T) {
 	should.NotContain(t, map[int]Post{}, p1)
 	should.NotContain(t, map[int]*Post{1: &p1}, p1)
 }
+
+func TestNilWithMapDefault(t *testing.T) {
+	m := make(map[int]*int)
+
+	should.BeNil(t, m[4])
+}

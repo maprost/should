@@ -19,9 +19,9 @@ func TestError(t *testing.T) {
 	should.BeEqual(t, msg.Error(), "")
 }
 
-func TestWrongType(t *testing.T) {
+func TestType(t *testing.T) {
 	var a map[*int]*string
-	should.BeEqual(t, msg.WrongType(a), "\ntype: map[*int]*string")
+	should.BeEqual(t, msg.Type(a), "\ntype: map[*int]*string")
 }
 
 func TestStackTrace(t *testing.T) {
@@ -29,4 +29,15 @@ func TestStackTrace(t *testing.T) {
 
 	should.HaveLength(t, strings.Split(stackTrace, "\n"), 2)
 	should.Contain(t, stackTrace, "/go/src/testing/testing.go")
+}
+
+func TestCollection(t *testing.T) {
+	//type Drop struct {
+	//	Hidden string
+	//}
+	//
+	//drop := &Drop{"secret"}
+	//should.BeEqual(t, msg.Collection([]*Drop{drop, drop}, drop), `
+	//collection: [0xc420052470] ([]*msg_test.Drop)
+	//   element: &{secret} (*msg_test.Drop)`)
 }

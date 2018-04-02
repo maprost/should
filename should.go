@@ -40,32 +40,32 @@ func BeFalse(t testing.TB, act bool, m ...interface{}) {
 // HaveLength checks if len(col) == 'exp'
 func HaveLength(t testing.TB, col interface{}, len int, m ...interface{}) {
 	switch reflect.TypeOf(col).Kind() {
-	case reflect.Slice, reflect.Array, reflect.Map:
+	case reflect.Slice, reflect.Array, reflect.Map, reflect.String:
 		a := reflect.ValueOf(col).Len()
 		if a != len {
 			fail(t, msg.Default(m, "Wrong length:"), msg.Values(a, len))
 		}
 
 	default:
-		fail(t, msg.Error("Wrong type, should be a slice, array or map."), msg.WrongType(col))
+		fail(t, msg.Error("Wrong type, should be a slice, array or map."), msg.Type(col))
 	}
 }
 
 // BeNil checks if 'act' == nil
 func BeNil(t testing.TB, act interface{}, m ...interface{}) {
-	if (act == nil) == false {
+	if isNil(act) == false {
 		fail(t, msg.Default(m, "Is not nil: "), act)
 	}
 }
 
 // NotBeNil checks if 'act' != nil
 func NotBeNil(t testing.TB, act interface{}, m ...interface{}) {
-	if act == nil {
+	if isNil(act) {
 		fail(t, msg.Default(m, "Is nil!"))
 	}
 }
 
-// Contain checks if the collection 'col' contains the given elements 'exp'.
+// Contain checks if the collection(array/slice7map/string) 'col' contains the given elements 'exp'.
 // if 'col' is a map, it will check if the map have a value that is equal with 'exp'
 func Contain(t testing.TB, col interface{}, exp interface{}, m ...interface{}) {
 	switch reflect.TypeOf(col).Kind() {
@@ -78,12 +78,12 @@ func Contain(t testing.TB, col interface{}, exp interface{}, m ...interface{}) {
 			fail(t, msg.Default(m, "Element is not in map:"), msg.Collection(col, exp))
 		}
 	case reflect.String:
-		colString := col.(string)
-		if in := strings.Contains(colString, exp.(string)); !in {
+		colString := reflect.ValueOf(col).String()
+		if in := strings.Contains(colString, reflect.ValueOf(exp).String()); !in {
 			fail(t, msg.Default(m, "Element is not in string:"), msg.Collection(col, exp))
 		}
 	default:
-		fail(t, msg.Error("Wrong type, should be a slice, array or map."), msg.WrongType(col))
+		fail(t, msg.Error("Wrong type, should be a slice, array, map or string."), msg.Type(col))
 	}
 }
 
@@ -99,8 +99,13 @@ func NotContain(t testing.TB, col interface{}, exp interface{}, m ...interface{}
 		if isInMap(col, exp) {
 			fail(t, msg.Default(m, "Element is in map:"), msg.Collection(col, exp))
 		}
+	case reflect.String:
+		colString := reflect.ValueOf(col).String()
+		if strings.Contains(colString, reflect.ValueOf(exp).String()) {
+			fail(t, msg.Default(m, "Element is in string:"), msg.Collection(col, exp))
+		}
 	default:
-		fail(t, msg.Error("Wrong type, should be a slice, array or map.", msg.WrongType(col)))
+		fail(t, msg.Error("Wrong type, should be a slice, array, map or string.", msg.Type(col)))
 	}
 }
 
@@ -128,7 +133,7 @@ func BeSimilar(t testing.TB, act interface{}, exp interface{}, m ...interface{})
 			}
 		}
 	} else {
-		fail(t, msg.Error("Wrong type, should be a slice or array."), msg.WrongType(act))
+		fail(t, msg.Error("Wrong type, should be a slice or array."), msg.Type(act))
 	}
 }
 
@@ -159,7 +164,7 @@ func NotBeSimilar(t testing.TB, act interface{}, exp interface{}, m ...interface
 		// all element are in -> similar -> fail!
 		fail(t, msg.Default(m, "Similar:"), msg.TypeValues(act, exp))
 	} else {
-		fail(t, msg.Error("Wrong type, should be a slice or array."), msg.WrongType(act))
+		fail(t, msg.Error("Wrong type, should be a slice or array."), msg.Type(act))
 	}
 }
 
@@ -196,5 +201,22 @@ func isInMap(col interface{}, elem interface{}) bool {
 			return true
 		}
 	}
+	return false
+}
+
+// check if element is nil
+func isNil(act interface{}) bool {
+	// general case
+	if act == nil {
+		return true
+	}
+
+	// special case for (Chan, Func, Interface, Map, Ptr, Slice)
+	value := reflect.ValueOf(act)
+	kind := value.Kind()
+	if kind >= reflect.Chan && kind <= reflect.Slice && value.IsNil() {
+		return true
+	}
+
 	return false
 }
