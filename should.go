@@ -47,7 +47,35 @@ func HaveLength(t testing.TB, col interface{}, len int, m ...interface{}) {
 		}
 
 	default:
-		fail(t, msg.Error("Wrong type, should be a slice, array or map."), msg.Type(col))
+		fail(t, msg.Error("Wrong type, should be a slice, array, map or string."), msg.Type(col))
+	}
+}
+
+// BeEmpty checks if len(col) == 0
+func BeEmpty(t testing.TB, col interface{}, m ...interface{}) {
+	switch reflect.TypeOf(col).Kind() {
+	case reflect.Slice, reflect.Array, reflect.Map, reflect.String:
+		a := reflect.ValueOf(col).Len()
+		if a != 0 {
+			fail(t, msg.Default(m, "Should be empty:"), a)
+		}
+
+	default:
+		fail(t, msg.Error("Wrong type, should be a slice, array, map or string."), msg.Type(col))
+	}
+}
+
+// NotBeEmpty checks if len(col) != 0
+func NotBeEmpty(t testing.TB, col interface{}, m ...interface{}) {
+	switch reflect.TypeOf(col).Kind() {
+	case reflect.Slice, reflect.Array, reflect.Map, reflect.String:
+		a := reflect.ValueOf(col).Len()
+		if a == 0 {
+			fail(t, msg.Default(m, "Should not be empty:"), a)
+		}
+
+	default:
+		fail(t, msg.Error("Wrong type, should be a slice, array, map or string."), msg.Type(col))
 	}
 }
 
@@ -65,7 +93,7 @@ func NotBeNil(t testing.TB, act interface{}, m ...interface{}) {
 	}
 }
 
-// Contain checks if the collection(array/slice7map/string) 'col' contains the given elements 'exp'.
+// Contain checks if the collection(array/slice/map/string) 'col' contains the given elements 'exp'.
 // if 'col' is a map, it will check if the map have a value that is equal with 'exp'
 func Contain(t testing.TB, col interface{}, exp interface{}, m ...interface{}) {
 	switch reflect.TypeOf(col).Kind() {
