@@ -42,4 +42,5 @@ func TestCollection(t *testing.T) {
 	//   element: &{secret} (*msg_test.Drop)`)
 
 	// first item
+	// second item
 }
