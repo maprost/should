@@ -40,4 +40,7 @@ func TestCollection(t *testing.T) {
 	//should.BeEqual(t, msg.Collection([]*Drop{drop, drop}, drop), `
 	//collection: [0xc420052470] ([]*msg_test.Drop)
 	//   element: &{secret} (*msg_test.Drop)`)
+
+
+	// 1
 }
